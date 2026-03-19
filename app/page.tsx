@@ -295,25 +295,118 @@ export default function KurtAndSonsPlumbingServices() {
           <div>
             <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">Testimonials</div>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              The kind of experience people talk about.
+              Trusted by Oak Lawn homeowners.
             </h2>
           </div>
-          <div className="text-zinc-400">Crafted to feel premium, trustworthy, and easy to say yes to.</div>
+          <div className="text-zinc-400">Real feedback from local customers who already trust Kurt & Sons Plumbing Services.</div>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {[
-            "They showed up fast, explained everything clearly, and left the space cleaner than they found it. The whole experience felt first-class.",
-            "Finally, a plumbing company that feels professional from the first call to the final fix. Smooth, honest, and incredibly reliable.",
-            "Kurt & Sons made a stressful issue feel easy. Great communication, great work, and a premium experience all around.",
-          ].map((quote, i) => (
-            <div key={i} className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
-              <div className="text-2xl text-amber-300">★★★★★</div>
-              <p className="mt-5 leading-8 text-zinc-300">“{quote}”</p>
-              <div className="mt-6 text-sm uppercase tracking-[0.25em] text-zinc-500">Local Customer</div>
-            </div>
-          ))}
+        <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-4">
+          <div className="flex gap-6 reviews-track">
+            {[
+              {
+                quote:
+                  "Outstanding plumbing service. They came out to our Oak Lawn home on short notice, replaced our water heater quickly, and everything was done professionally with no issues. Prices were way better than other companies.",
+                name: "Taylor Wiggins",
+                tag: "Water heater install",
+              },
+              {
+                quote:
+                  "They explained everything clearly, showed up on time, and installed a new water heater the next day. Clean work and great communication.",
+                name: "Danny Coleman",
+                tag: "Next-day service",
+              },
+              {
+                quote:
+                  "Professional, friendly, and very knowledgeable. They fixed our water heater without trying to upsell anything and explained everything clearly.",
+                name: "Mya Singleton",
+                tag: "Honest repair",
+              },
+              {
+                quote:
+                  "I’ve used them for years and they always deliver. Professional work, fair pricing, and everything done right the first time.",
+                name: "Stella Roach",
+                tag: "Long-time customer",
+              },
+              {
+                quote:
+                  "We discovered a leak in our Oak Lawn home and their team impressed us from the beginning. The repiping job went smoothly, everything was clearly explained, and the final work looked neat and tidy.",
+                name: "Angel Rhodes",
+                tag: "Repiping project",
+              },
+              {
+                quote:
+                  "Outstanding plumbing service. They came out to our Oak Lawn home on short notice, replaced our water heater quickly, and everything was done professionally with no issues. Prices were way better than other companies.",
+                name: "Taylor Wiggins",
+                tag: "Water heater install",
+              },
+              {
+                quote:
+                  "They explained everything clearly, showed up on time, and installed a new water heater the next day. Clean work and great communication.",
+                name: "Danny Coleman",
+                tag: "Next-day service",
+              },
+              {
+                quote:
+                  "Professional, friendly, and very knowledgeable. They fixed our water heater without trying to upsell anything and explained everything clearly.",
+                name: "Mya Singleton",
+                tag: "Honest repair",
+              },
+              {
+                quote:
+                  "I’ve used them for years and they always deliver. Professional work, fair pricing, and everything done right the first time.",
+                name: "Stella Roach",
+                tag: "Long-time customer",
+              },
+              {
+                quote:
+                  "We discovered a leak in our Oak Lawn home and their team impressed us from the beginning. The repiping job went smoothly, everything was clearly explained, and the final work looked neat and tidy.",
+                name: "Angel Rhodes",
+                tag: "Repiping project",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="w-[320px] shrink-0 rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] p-8 shadow-xl shadow-black/20 backdrop-blur-sm"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="text-2xl text-amber-300">★★★★★</div>
+                  <div className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-zinc-400">
+                    {item.tag}
+                  </div>
+                </div>
+                <p className="mt-6 leading-8 text-zinc-300">“{item.quote}”</p>
+                <div className="mt-6 border-t border-white/10 pt-5 text-sm uppercase tracking-[0.25em] text-zinc-500">
+                  {item.name}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
+        <div className="mt-4 text-sm text-zinc-500">
+          Premium rotating client feedback from real Oak Lawn customers.
+        </div>
+
+        <style jsx>{`
+          .reviews-track {
+            width: max-content;
+            animation: reviews-scroll 45s linear infinite;
+          }
+
+          .reviews-track:hover {
+            animation-play-state: paused;
+          }
+
+          @keyframes reviews-scroll {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-50%);
+            }
+          }
+        `}</style>
       </section>
 
       <section id="contact" className="px-6 pb-24 lg:px-10">
@@ -347,14 +440,14 @@ export default function KurtAndSonsPlumbingServices() {
                 </div>
                 <div>
                   <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">Service Area</div>
-                  <div className="mt-1 text-lg font-medium">Oak Lawn & Surrounding Areas</div>
+                  <div className="mt-1 text-lg font-medium">Oak Lawn & surrounding areas</div>
                 </div>
               </div>
               <a
                 href="#top"
                 className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-zinc-950 transition hover:scale-[1.02]"
               >
-                Start Your Brand Presence
+                Request Service Now
               </a>
             </div>
           </div>

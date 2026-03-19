@@ -1,4 +1,49 @@
+"use client";
+
+import { useState } from "react";
+
 export default function KurtAndSonsPlumbingServices() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("submitting");
+
+    try {
+      const response = await fetch("https://formspree.io/f/mlgpzrnw", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          _subject: "New Kurt & Sons Plumbing lead",
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", phone: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
   return (
     <div className="min-h-screen bg-zinc-950 text-white">
       <section className="relative overflow-hidden">
@@ -95,18 +140,23 @@ export default function KurtAndSonsPlumbingServices() {
                 <div className="h-3 w-3 rounded-full bg-emerald-400" />
               </div>
 
-              <form action="https://formspree.io/f/mlgpzrnw" method="POST" className="space-y-4">
-                <input type="hidden" name="_subject" value="New Kurt & Sons Plumbing lead" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_next" value="http://localhost:3000/?success=true#contact" />
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <input
+                  type="text"
                   name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  autoComplete="off"
                   className="w-full rounded-2xl border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
                   placeholder="Full name"
                   required
                 />
                 <input
+                  type="tel"
                   name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  autoComplete="off"
                   className="w-full rounded-2xl border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
                   placeholder="Phone number"
                   required
@@ -114,18 +164,37 @@ export default function KurtAndSonsPlumbingServices() {
                 <input
                   type="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="off"
                   className="w-full rounded-2xl border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
                   placeholder="Email address"
                 />
                 <textarea
                   name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   className="min-h-[120px] w-full rounded-2xl border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
                   placeholder="Tell us what’s going on"
                   required
                 />
-                <button className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-sm font-semibold text-zinc-950 transition hover:brightness-105">
-                  Request Premium Service
+                <button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="w-full rounded-2xl bg-amber-400 px-4 py-3 text-sm font-semibold text-zinc-950 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {status === "submitting" ? "Sending Request..." : "Request Premium Service"}
                 </button>
+                {status === "success" ? (
+                  <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/10 px-4 py-3 text-center text-sm text-emerald-200">
+                    Thank you — your request was sent successfully. Kurt & Sons Plumbing will contact you shortly.
+                  </div>
+                ) : null}
+                {status === "error" ? (
+                  <div className="rounded-2xl border border-red-400/20 bg-red-400/10 px-4 py-3 text-center text-sm text-red-200">
+                    Something went wrong sending your request. Please try again.
+                  </div>
+                ) : null}
                 <p className="text-center text-xs text-zinc-500">
                   Same-day availability for many plumbing emergencies.
                 </p>
@@ -285,7 +354,7 @@ export default function KurtAndSonsPlumbingServices() {
                 href="#top"
                 className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-zinc-950 transition hover:scale-[1.02]"
               >
-                Request Service Now
+                Start Your Brand Presence
               </a>
             </div>
           </div>

@@ -270,7 +270,7 @@ export default function KurtAndSonsPlumbingServices() {
             <div className="text-sm uppercase tracking-[0.35em] text-amber-300">Why Kurt & Sons</div>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight">Built on trust, craftsmanship, and family pride.</h2>
             <p className="mt-5 text-lg leading-8 text-zinc-400">
-              Kurt & Sons Plumbing Services is positioned as a premium, family-run plumbing company that values responsiveness, clean work, honest pricing, and long-term customer relationships.
+              Kurt & Sons Plumbing Services is a family-run plumbing company focused on honest work, reliable results, and long-term customer relationships. With years of experience serving Oak Lawn and surrounding areas, the team is known for clean work, fast response times, and clear communication from start to finish.
             </p>
           </div>
 
@@ -290,6 +290,30 @@ export default function KurtAndSonsPlumbingServices() {
         </div>
       </section>
 
+      <section id="faq" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+        <div className="max-w-2xl">
+          <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">FAQ</div>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+            Common questions from homeowners
+          </h2>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {[
+            ["Do you offer same-day service?", "Yes, we offer same-day service for many plumbing issues depending on availability."],
+            ["Do you handle emergency plumbing?", "Absolutely. We handle urgent plumbing problems quickly and professionally."],
+            ["Do you work on water heaters?", "Yes, we install, repair, and replace both traditional and tankless water heaters."],
+            ["Do you service Oak Lawn and nearby areas?", "Yes, we serve Oak Lawn and surrounding communities."],
+            ["Do you provide upfront pricing?", "Yes, we believe in clear, honest pricing with no surprises."],
+          ].map(([q, a]) => (
+            <div key={q} className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+              <h3 className="text-lg font-semibold">{q}</h3>
+              <p className="mt-2 text-zinc-400">{a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section id="reviews" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
@@ -298,7 +322,7 @@ export default function KurtAndSonsPlumbingServices() {
               Trusted by Oak Lawn homeowners.
             </h2>
           </div>
-          <div className="text-zinc-400">Real feedback from local customers who already trust Kurt & Sons Plumbing Services.</div>
+          <div className="text-zinc-400">Trusted by local homeowners for years. Real feedback from customers who already trust Kurt & Sons Plumbing Services.</div>
         </div>
 
         <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-4">
@@ -453,6 +477,21 @@ export default function KurtAndSonsPlumbingServices() {
           </div>
         </div>
       </section>
+
+      <section className="px-6 pb-24 lg:px-10">
+        <div className="mx-auto max-w-7xl text-center">
+          <h2 className="text-3xl font-semibold sm:text-4xl">
+            Need a plumber in Oak Lawn? Call Kurt & Sons today.
+          </h2>
+          <a
+            href="tel:+17087192825"
+            className="mt-6 inline-flex rounded-full bg-cyan-400 px-8 py-4 text-sm font-semibold text-zinc-950 transition hover:scale-[1.03]"
+          >
+            Call Now: (708) 719-2825
+          </a>
+        </div>
+      </section>
+
     </div>
   );
 }

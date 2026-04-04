@@ -11,7 +11,7 @@ type ServiceItem = {
 };
 
 function ServiceIcon({ type }: { type: ServiceItem["icon"] }) {
-  const className = "h-7 w-7 text-amber-300";
+  const className = "h-7 w-7 text-[#d4bb8a]";
 
   switch (type) {
     case "wrench":
@@ -69,8 +69,10 @@ export default function KurtAndSonsPlumbingServices() {
     service: "Emergency Repair",
     message: "",
   });
+
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [language, setLanguage] = useState<Language>("en");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const copy = {
     en: {
@@ -639,56 +641,97 @@ export default function KurtAndSonsPlumbingServices() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white">
+    <div className="min-h-screen bg-[#030712] text-white">
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-slate-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,165,233,0.12),transparent_28%),linear-gradient(135deg,#020617_0%,#081326_55%,#060b16_100%)]" />
         <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-cyan-500/10 blur-3xl" />
         <div className="absolute top-40 -left-16 h-72 w-72 rounded-full bg-amber-400/10 blur-3xl" />
 
-        <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
-          <div>
-            <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">Kurt & Sons</div>
-            <div className="text-xl font-semibold tracking-wide text-white">Plumbing Services</div>
-          </div>
+        <header className="relative z-30 border-b border-white/5">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-10">
+            <div className="min-w-0">
+              <div className="text-xs uppercase tracking-[0.35em] text-cyan-300 sm:text-sm">Kurt & Sons</div>
+              <div className="mt-1 text-2xl font-semibold tracking-wide text-white sm:text-xl">
+                Plumbing Services
+              </div>
+            </div>
 
-          <div className="hidden items-center gap-8 text-sm text-zinc-300 md:flex">
-            <a href="#services" className="transition hover:text-white">{t.navServices}</a>
-            <a href="#about" className="transition hover:text-white">{t.navAbout}</a>
-            <a href="#gallery" className="transition hover:text-white">{t.navGallery}</a>
-            <a href="#reviews" className="transition hover:text-white">{t.navReviews}</a>
-            <a href="#faq" className="transition hover:text-white">{t.navFaq}</a>
-            <a href="#contact" className="transition hover:text-white">{t.navContact}</a>
-          </div>
+            <div className="hidden items-center gap-8 text-sm text-zinc-300 lg:flex">
+              <a href="#services" className="transition hover:text-white">{t.navServices}</a>
+              <a href="#about" className="transition hover:text-white">{t.navAbout}</a>
+              <a href="#gallery" className="transition hover:text-white">{t.navGallery}</a>
+              <a href="#reviews" className="transition hover:text-white">{t.navReviews}</a>
+              <a href="#faq" className="transition hover:text-white">{t.navFaq}</a>
+              <a href="#contact" className="transition hover:text-white">{t.navContact}</a>
+            </div>
 
-          <div className="ml-8 hidden items-center gap-6 md:flex">
+            <div className="hidden items-center gap-4 xl:flex">
+              <button
+                onClick={cycleLanguage}
+                className="rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
+              >
+                {t.toggle}
+              </button>
+              <a
+                href="tel:+17087192825"
+                className="rounded-full border border-cyan-300/25 bg-cyan-400/10 px-5 py-2.5 text-sm font-semibold text-cyan-100 backdrop-blur transition hover:bg-cyan-400/15"
+              >
+                {t.callNow}
+              </a>
+              <a
+                href="#contact"
+                className="rounded-full border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
+              >
+                {t.schedule}
+              </a>
+            </div>
+
             <button
-              onClick={cycleLanguage}
-              className="rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white lg:hidden"
             >
-              {t.toggle}
+              Menu
             </button>
-            <a
-              href="tel:+17087192825"
-              className="rounded-full border border-cyan-300/25 bg-cyan-400/10 px-5 py-2.5 text-sm font-semibold text-cyan-100 backdrop-blur transition hover:bg-cyan-400/15"
-            >
-              {t.callNow}
-            </a>
-            <a
-              href="#contact"
-              className="rounded-full border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15"
-            >
-              {t.schedule}
-            </a>
           </div>
+
+          {mobileMenuOpen ? (
+            <div className="border-t border-white/5 bg-[#07111f]/95 px-4 py-4 backdrop-blur lg:hidden">
+              <div className="flex flex-col gap-4 text-sm text-zinc-200">
+                <a href="#services" onClick={() => setMobileMenuOpen(false)}>{t.navServices}</a>
+                <a href="#about" onClick={() => setMobileMenuOpen(false)}>{t.navAbout}</a>
+                <a href="#gallery" onClick={() => setMobileMenuOpen(false)}>{t.navGallery}</a>
+                <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>{t.navReviews}</a>
+                <a href="#faq" onClick={() => setMobileMenuOpen(false)}>{t.navFaq}</a>
+                <a href="#contact" onClick={() => setMobileMenuOpen(false)}>{t.navContact}</a>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <button
+                    onClick={() => {
+                      cycleLanguage();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="rounded-full border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-medium text-white"
+                  >
+                    {t.toggle}
+                  </button>
+                  <a
+                    href="tel:+17087192825"
+                    className="rounded-full bg-cyan-400 px-4 py-2.5 text-sm font-semibold text-zinc-950"
+                  >
+                    {t.callNow}
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </header>
 
-        <div className="relative z-10 mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:pb-28 lg:pt-12">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-10 lg:pb-28 lg:pt-14">
           <div className="max-w-3xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-xs uppercase tracking-[0.3em] text-cyan-200">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-cyan-200 sm:text-xs">
               {t.badge}
             </div>
 
-            <h1 className="text-5xl font-semibold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
+            <h1 className="text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
               {t.heroTitle}
             </h1>
 
@@ -696,24 +739,24 @@ export default function KurtAndSonsPlumbingServices() {
               {t.heroText}
             </p>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
               <a
                 href="tel:+17087192825"
-                className="rounded-full border border-amber-300/30 bg-amber-300/10 px-7 py-4 text-sm font-semibold text-amber-100 transition hover:bg-amber-300/15"
+                className="rounded-full border border-[#d4bb8a]/25 bg-[#d4bb8a]/10 px-7 py-4 text-center text-sm font-semibold text-[#f2dfb7] transition hover:bg-[#d4bb8a]/15"
               >
                 {t.callNow}
               </a>
 
               <a
                 href="#contact"
-                className="rounded-full bg-cyan-400 px-7 py-4 text-sm font-semibold text-zinc-950 transition hover:scale-[1.02]"
+                className="rounded-full bg-cyan-400 px-7 py-4 text-center text-sm font-semibold text-zinc-950 transition hover:scale-[1.02]"
               >
                 {t.schedule}
               </a>
 
               <a
                 href="#services"
-                className="rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-white transition hover:bg-white/5"
+                className="rounded-full border border-white/15 px-7 py-4 text-center text-sm font-semibold text-white transition hover:bg-white/5"
               >
                 {t.explore}
               </a>
@@ -725,7 +768,10 @@ export default function KurtAndSonsPlumbingServices() {
                 [t.stat2, t.stat2Sub],
                 [t.stat3, t.stat3Sub],
               ].map(([title, subtitle]) => (
-                <div key={title} className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
+                <div
+                  key={title}
+                  className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm"
+                >
                   <div className="text-2xl font-semibold text-white">{title}</div>
                   <div className="mt-1 text-sm text-zinc-400">{subtitle}</div>
                 </div>
@@ -734,17 +780,17 @@ export default function KurtAndSonsPlumbingServices() {
           </div>
 
           <div className="flex items-end">
-            <div className="w-full rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl">
+            <div className="w-full rounded-[2rem] border border-white/10 bg-[#07111f]/80 p-5 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl sm:p-6">
               <div className="mb-5 flex items-center justify-between">
                 <div>
                   <div className="text-xs uppercase tracking-[0.3em] text-zinc-400">{t.panelEyebrow}</div>
-                  <div className="mt-1 text-2xl font-semibold">{t.panelTitle}</div>
+                  <div className="mt-2 text-2xl font-semibold text-white">{t.panelTitle}</div>
                 </div>
                 <div className="h-3 w-3 rounded-full bg-emerald-400" />
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-sm uppercase tracking-[0.22em] text-zinc-400">
                       {t.name}
@@ -755,7 +801,7 @@ export default function KurtAndSonsPlumbingServices() {
                       value={formData.name}
                       onChange={handleChange}
                       autoComplete="off"
-                      className="w-full rounded-none border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+                      className="w-full rounded-none border border-white/10 bg-[#020817] px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-cyan-300/50"
                       required
                     />
                   </div>
@@ -770,7 +816,7 @@ export default function KurtAndSonsPlumbingServices() {
                       value={formData.phone}
                       onChange={handleChange}
                       autoComplete="off"
-                      className="w-full rounded-none border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+                      className="w-full rounded-none border border-white/10 bg-[#020817] px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-cyan-300/50"
                       required
                     />
                   </div>
@@ -786,7 +832,7 @@ export default function KurtAndSonsPlumbingServices() {
                     value={formData.email}
                     onChange={handleChange}
                     autoComplete="off"
-                    className="w-full rounded-none border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+                    className="w-full rounded-none border border-white/10 bg-[#020817] px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-cyan-300/50"
                   />
                 </div>
 
@@ -798,7 +844,7 @@ export default function KurtAndSonsPlumbingServices() {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full appearance-none rounded-none border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none"
+                    className="w-full appearance-none rounded-none border border-white/10 bg-[#020817] px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/50"
                     required
                   >
                     {t.serviceOptions.map((option) => (
@@ -817,7 +863,7 @@ export default function KurtAndSonsPlumbingServices() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="min-h-[130px] w-full rounded-none border border-white/10 bg-zinc-950/60 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-500"
+                    className="min-h-[130px] w-full rounded-none border border-white/10 bg-[#020817] px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-cyan-300/50"
                     required
                   />
                 </div>
@@ -841,34 +887,37 @@ export default function KurtAndSonsPlumbingServices() {
                     {t.error}
                   </div>
                 ) : null}
+
+                <p className="text-center text-xs text-zinc-500">{t.panelNote}</p>
+                <p className="text-center text-[11px] uppercase tracking-[0.22em] text-zinc-500">{t.panelBottom}</p>
               </form>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-white/5 bg-zinc-900/50">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-8 text-center sm:grid-cols-4 lg:px-10">
+      <section className="border-y border-white/5 bg-[#08111f]/80">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 text-center sm:px-6 sm:grid-cols-4 lg:px-10">
           {[t.marquee1, t.marquee2, t.marquee3, t.marquee4].map((item) => (
-            <div key={item} className="text-sm uppercase tracking-[0.22em] text-zinc-400">
+            <div key={item} className="text-xs uppercase tracking-[0.22em] text-zinc-400 sm:text-sm">
               {item}
             </div>
           ))}
         </div>
       </section>
 
-      <section id="services" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+      <section id="services" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
           <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">{t.servicesEyebrow}</div>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{t.servicesTitle}</h2>
           <p className="mt-5 text-lg leading-8 text-zinc-400">{t.servicesText}</p>
         </div>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {t.services.map((service) => (
             <div
               key={service.title}
-              className="rounded-none border border-white/10 bg-[#061325] p-10 transition hover:-translate-y-1 hover:border-cyan-300/30"
+              className="rounded-none border border-white/10 bg-[#04101f] p-8 sm:p-10 transition hover:-translate-y-1 hover:border-cyan-300/30"
             >
               <div className="mb-8">
                 <ServiceIcon type={service.icon} />
@@ -880,10 +929,10 @@ export default function KurtAndSonsPlumbingServices() {
         </div>
       </section>
 
-      <section id="about" className="bg-gradient-to-b from-zinc-950 to-zinc-900/80">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-[0.95fr_1.05fr] lg:px-10">
+      <section id="about" className="bg-gradient-to-b from-[#030712] to-[#07111f]">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-10">
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
-            <div className="text-sm uppercase tracking-[0.35em] text-amber-300">{t.aboutEyebrow}</div>
+            <div className="text-sm uppercase tracking-[0.35em] text-[#d4bb8a]">{t.aboutEyebrow}</div>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight">{t.aboutTitle}</h2>
             <p className="mt-5 text-lg leading-8 text-zinc-400">{t.aboutText}</p>
           </div>
@@ -899,18 +948,21 @@ export default function KurtAndSonsPlumbingServices() {
         </div>
       </section>
 
-      <section id="gallery" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+      <section id="gallery" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">{t.galleryEyebrow}</div>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{t.galleryTitle}</h2>
           </div>
-          <div className="text-zinc-400">{t.galleryText}</div>
+          <div className="max-w-xl text-zinc-400">{t.galleryText}</div>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {t.gallery.map((image) => (
-            <div key={image.src} className="group overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] shadow-xl shadow-black/20">
+            <div
+              key={image.src}
+              className="group overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] shadow-xl shadow-black/20"
+            >
               <img
                 src={image.src}
                 alt={image.alt}
@@ -921,13 +973,13 @@ export default function KurtAndSonsPlumbingServices() {
         </div>
       </section>
 
-      <section id="reviews" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+      <section id="reviews" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">{t.reviewsEyebrow}</div>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{t.reviewsTitle}</h2>
           </div>
-          <div className="text-zinc-400">{t.reviewsText}</div>
+          <div className="max-w-xl text-zinc-400">{t.reviewsText}</div>
         </div>
 
         <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-4">
@@ -938,7 +990,7 @@ export default function KurtAndSonsPlumbingServices() {
                 className="w-[320px] shrink-0 rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.05] to-white/[0.02] p-8 shadow-xl shadow-black/20 backdrop-blur-sm"
               >
                 <div className="flex items-center justify-between">
-                  <div className="text-2xl text-amber-300">★★★★★</div>
+                  <div className="text-2xl text-[#d4bb8a]">★★★★★</div>
                   <div className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-zinc-400">
                     {item.tag}
                   </div>
@@ -975,7 +1027,7 @@ export default function KurtAndSonsPlumbingServices() {
         `}</style>
       </section>
 
-      <section id="faq" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+      <section id="faq" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-10">
         <div className="max-w-2xl">
           <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">{t.faqEyebrow}</div>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{t.faqTitle}</h2>
@@ -991,27 +1043,34 @@ export default function KurtAndSonsPlumbingServices() {
         </div>
       </section>
 
-      <section id="contact" className="px-6 pb-24 lg:px-10">
+      <section id="contact" className="px-4 pb-32 pt-4 sm:px-6 lg:px-10">
         <a
           href="tel:+17087192825"
-          className="fixed bottom-5 right-5 z-50 inline-flex items-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-zinc-950 shadow-2xl shadow-cyan-950/40 transition hover:scale-[1.03] lg:hidden"
+          className="fixed bottom-4 left-4 right-4 z-50 inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-4 text-base font-semibold text-zinc-950 shadow-2xl shadow-cyan-950/40 transition hover:scale-[1.02] lg:hidden"
         >
           {t.callNow}
         </a>
 
-        <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-cyan-400/10 via-zinc-900 to-amber-300/10 p-8 sm:p-10 lg:p-14">
-          <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr]">
-            <div>
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/10 bg-gradient-to-br from-cyan-400/10 via-zinc-900 to-amber-300/10 p-6 sm:rounded-[2.5rem] sm:p-8 lg:p-14">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-10">
+            <div className="min-w-0">
               <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">{t.contactEyebrow}</div>
-              <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">{t.contactTitle}</h2>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">{t.contactText}</p>
+              <h2 className="mt-4 max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+                {t.contactTitle}
+              </h2>
+              <p className="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
+                {t.contactText}
+              </p>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-black/20 p-7 backdrop-blur-sm">
-              <div className="space-y-4 text-zinc-300">
+            <div className="min-w-0 rounded-[1.75rem] border border-white/10 bg-black/20 p-6 backdrop-blur-sm sm:p-7">
+              <div className="space-y-5 text-zinc-300">
                 <div>
                   <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">{t.callLabel}</div>
-                  <a href="tel:+17087192825" className="mt-1 block text-lg font-medium transition hover:text-cyan-300">
+                  <a
+                    href="tel:+17087192825"
+                    className="mt-2 block break-words text-xl font-medium leading-tight transition hover:text-cyan-300 sm:text-lg"
+                  >
                     (708) 719-2825
                   </a>
                 </div>
@@ -1019,20 +1078,20 @@ export default function KurtAndSonsPlumbingServices() {
                   <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">{t.emailLabel}</div>
                   <a
                     href="mailto:service@kurtandsonsplumbing.com"
-                    className="mt-1 block text-lg font-medium transition hover:text-cyan-300"
+                    className="mt-2 block break-all text-xl font-medium leading-tight transition hover:text-cyan-300 sm:text-lg"
                   >
                     service@kurtandsonsplumbing.com
                   </a>
                 </div>
                 <div>
                   <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">{t.areaLabel}</div>
-                  <div className="mt-1 text-lg font-medium">{t.serviceArea}</div>
+                  <div className="mt-2 text-xl font-medium leading-tight sm:text-lg">{t.serviceArea}</div>
                 </div>
               </div>
 
               <a
                 href="#contact"
-                className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-zinc-950 transition hover:scale-[1.02]"
+                className="mt-8 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-4 text-base font-semibold text-zinc-950 transition hover:scale-[1.01] sm:w-auto sm:text-sm"
               >
                 {t.bottomButton}
               </a>
@@ -1041,7 +1100,7 @@ export default function KurtAndSonsPlumbingServices() {
         </div>
       </section>
 
-      <section className="px-6 pb-24 lg:px-10">
+      <section className="px-4 pb-24 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl text-center">
           <h2 className="text-3xl font-semibold sm:text-4xl">{t.finalTitle}</h2>
           <a
@@ -1053,7 +1112,7 @@ export default function KurtAndSonsPlumbingServices() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-[#0b1117] px-6 py-16 lg:px-10">
+      <footer className="border-t border-white/10 bg-[#060d18] px-4 py-16 sm:px-6 lg:px-10">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
           <div>
             <div className="text-sm uppercase tracking-[0.35em] text-cyan-300">Kurt & Sons</div>
